@@ -1,36 +1,30 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+/** 
+ * Require express app instance, appConfiguration, queueConfigurations, and the messagingQueue
+ */
+let app = require('express')();
+let appConfiguration = require('./configurations/app-configuration');
+let queueConfigurations = require('./configurations/queue-configurations');
+let exchangeConfigurations = require('./configurations/exchange-configurations');
+let messagingQueue = require('./messaging/messaging-queue');
 
-var index = require('./routes/index');
+/**
+ * Get testingQueue configuration
+ */
+let tQueueConfig = queueConfigurations.tQueue;
 
-var app = express();
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-app.use('/', index);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+/**
+ * Connect to docker container with RabbitMQ instance,
+ * then create a channel, assert a queue, and finally consume from queue
+ */
+messagingQueue.connect(appConfiguration.dockerUrl, null)
+.then((messagingQueueResponse) => {
+    return messagingQueue.createChannel();
+})
+.then((messagingQueueResponse) => {
+    return messagingQueue.assertQueue(tQueueConfig.name, tQueueConfig.assertionOptions);
+})
+.then((messagingQueueResponse) => {
+    return messagingQueue.consumeFromQueue(tQueueConfig.Name, tQueueConfig.consumptionCallBack, tQueueConfig.consumptionOptions);
 });
 
 module.exports = app;
