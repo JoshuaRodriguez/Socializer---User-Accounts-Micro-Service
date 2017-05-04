@@ -1,8 +1,8 @@
 /** 
  * Require express app instance, appConfiguration, queueConfigurations, and the messagingQueue
  */
+require('dotenv').config();
 let app = require('express')();
-let appConfiguration = require('./configurations/app-configuration');
 let queueConfigurations = require('./configurations/queue-configurations');
 let exchangeConfigurations = require('./configurations/exchange-configurations');
 let messagingQueue = require('./messaging/messaging-queue');
@@ -16,7 +16,7 @@ let tQueueConfig = queueConfigurations.tQueue;
  * Connect to docker container with RabbitMQ instance,
  * then create a channel, assert a queue, and finally consume from queue
  */
-messagingQueue.connect(appConfiguration.dockerUrl, null)
+messagingQueue.connect(process.env.RABBIT_MQ_DOCKER_URL, null)
 .then((messagingQueueResponse) => {
     return messagingQueue.createChannel();
 })
@@ -25,6 +25,9 @@ messagingQueue.connect(appConfiguration.dockerUrl, null)
 })
 .then((messagingQueueResponse) => {
     return messagingQueue.consumeFromQueue(tQueueConfig.Name, tQueueConfig.consumptionCallBack, tQueueConfig.consumptionOptions);
+})
+.catch((err) => {
+    console.error(err);
 });
 
 module.exports = app;
