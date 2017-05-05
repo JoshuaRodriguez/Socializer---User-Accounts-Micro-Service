@@ -1,19 +1,17 @@
-/**
- * Required dependency on AMQPLIB 
- */
-let messagingQueue = require('../messaging/messaging-queue');
-let queueConfigurations = require('../configurations/queue-configurations');
+let messagingQueue = require("../messaging/messaging-queue");
+let queueConfigurations = require("../configurations/queue-configurations");
 
 let tQueue = queueConfigurations["tQueue"];
-let tQueue2 = queueConfigurations["tQueue2"];
+
+let tQueueContent = "Need users now!";
 
 messagingQueue.connect("amqp://localhost:32769", null)
-.then((messagingQueueResponse) => {
+.then(() => {
     return messagingQueue.createChannel();
 })
-.then((messagingQueueResponse) => {
+.then(() => {
     return messagingQueue.assertQueue(tQueue.name, tQueue.assertionOptions);
 })
-.then((messagingQueueResponse) => {
-    return messagingQueue.checkQueue(tQueue2.name);
+.then(() => {
+    return messagingQueue.sendToQueue(tQueue.name, tQueueContent, null);
 });

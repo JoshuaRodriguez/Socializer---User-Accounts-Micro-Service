@@ -7,10 +7,13 @@ let tQueue = {
     "assertionOptions": {
         durable: true
     },
+    "sendOptions": {
+
+    },
     "consumptionOptions": {
         noAck: true
     },
-    "consumptionCallBack": function(msg) {
+    "consumptionCallBack": function (msg) {
         console.log(msg.content.toString());
     },
 };
@@ -20,11 +23,14 @@ let tQueue2 = {
     "assertionOptions": {
         durable: true
     },
+    "sendOptions": {
+
+    },
     "consumptionOptions": {
         noAck: true
     },
-    "consumptionCallBack": function(msg) {
-        console.log(msg);
+    "consumptionCallBack": function (msg) {
+        console.log(msg.content.toString());
     }
 };
 
@@ -33,11 +39,14 @@ let tQueue3 = {
     "assertionOptions": {
         durable: true
     },
+    "sendOptions": {
+
+    },
     "consumptionOptions": {
         noAck: true
     },
-    "consumptionCallBack": function(msg) {
-        console.log(msg);
+    "consumptionCallBack": function (msg) {
+        console.log(msg.content.toString());
     }
 };
 
