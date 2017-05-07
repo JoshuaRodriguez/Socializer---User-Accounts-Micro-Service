@@ -1,52 +1,62 @@
+let mongoose = require('mongoose');
+let testUser = require('../database/model');
+mongoose.Promise = require('bluebird');
+
 /**
  * Declare queue configurations here 
  */
 
 let tQueue = {
     "name": "tQueue",
-    "assertionOptions": {
-        durable: true
-    },
-    "sendOptions": {
+    "options": {
+        "forAsserting": {
+            durable: true
+        },
+        "forSending": { 
 
+        },
+        "forConsuming": {
+            noAck: true
+        }
     },
-    "consumptionOptions": {
-        noAck: true
-    },
-    "consumptionCallBack": function (msg) {
-        console.log(msg.content.toString());
-    },
+    "callBacks": {
+        "consume": function() { }
+    }
 };
 
 let tQueue2 = {
     "name": "tQueue2",
-    "assertionOptions": {
-        durable: true
-    },
-    "sendOptions": {
+    "options": {
+        "forAsserting": {
+            durable: true
+        },
+        "forSending": { 
 
+        },
+        "forConsuming": {
+            noAck: true
+        }
     },
-    "consumptionOptions": {
-        noAck: true
-    },
-    "consumptionCallBack": function (msg) {
-        console.log(msg.content.toString());
+    "callBacks": {
+        "consume": function() { }
     }
 };
 
 let tQueue3 = {
     "name": "tQueue3",
-    "assertionOptions": {
-        durable: true
-    },
-    "sendOptions": {
+    "options": {
+        "forAsserting": {
+            durable: true
+        },
+        "forSending": { 
 
+        },
+        "forConsuming": {
+            noAck: true
+        }
     },
-    "consumptionOptions": {
-        noAck: true
-    },
-    "consumptionCallBack": function (msg) {
-        console.log(msg.content.toString());
+     "callBacks": {
+        "consume": function() { }
     }
 };
 
