@@ -1,7 +1,3 @@
-let mongoose = require('mongoose');
-let testUser = require('../database/model');
-mongoose.Promise = require('bluebird');
-
 /**
  * Declare queue configurations here 
  */
@@ -18,9 +14,6 @@ let tQueue = {
         "forConsuming": {
             noAck: true
         }
-    },
-    "callBacks": {
-        "consume": function() { }
     }
 };
 
@@ -36,9 +29,6 @@ let tQueue2 = {
         "forConsuming": {
             noAck: true
         }
-    },
-    "callBacks": {
-        "consume": function() { }
     }
 };
 
@@ -54,9 +44,6 @@ let tQueue3 = {
         "forConsuming": {
             noAck: true
         }
-    },
-     "callBacks": {
-        "consume": function() { }
     }
 };
 
