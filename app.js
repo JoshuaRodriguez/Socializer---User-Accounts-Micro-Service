@@ -3,7 +3,7 @@
  */
 require("dotenv").config();
 let app = require("express")();
-let mongoose = require('mongoose');
+let mongoose = require("mongoose");
 let queueConfigurations = require("./configurations/queue-configurations");
 let messagingQueue = require("./messaging/messaging-queue");
 let mongoDBConnection = null;
