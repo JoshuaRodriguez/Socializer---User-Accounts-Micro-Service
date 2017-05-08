@@ -8,7 +8,7 @@ let tQueue = {
         "forAsserting": {
             durable: true
         },
-        "forSending": { 
+        "forSending": {
 
         },
         "forConsuming": {
@@ -23,7 +23,7 @@ let tQueue2 = {
         "forAsserting": {
             durable: true
         },
-        "forSending": { 
+        "forSending": {
 
         },
         "forConsuming": {
@@ -38,7 +38,7 @@ let tQueue3 = {
         "forAsserting": {
             durable: true
         },
-        "forSending": { 
+        "forSending": {
 
         },
         "forConsuming": {
